@@ -9,7 +9,8 @@ class PassFdListener(Listener):
         super().__init__()
         self.mutex = Lock()
         self.epoll = select.epoll()
-        self.epoll.register(self.listen_fd, select.EPOLLIN | select.EPOLLET)
+        # self.epoll.register(self.listen_fd, select.EPOLLIN | select.EPOLLET)
+        self.epoll.register(self.listen_fd, select.EPOLLIN)  # nginx在处理accept时采用LT
         self.childs = [] # 保存子进程信息
         self.events = []
 
