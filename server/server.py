@@ -12,6 +12,3 @@ class Server:
 
     def run(self):
         pass
-
-    def _main_loop(self):
-        pass
