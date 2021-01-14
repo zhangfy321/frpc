@@ -1,6 +1,5 @@
-import select
 import socket
-from conf.conf import *
+from py.conf.conf import *
 from multiprocessing import cpu_count
 
 
@@ -19,9 +18,6 @@ class Listener:
     def run(self):
         raise NotImplementedError
 
-    def _main_loop(self):
-        raise NotImplementedError
-
     def _recv_data(self, raw_data):
         view = memoryview(raw_data).cast('B')  # unsigned char
         # 好处是按字节访问时减少拷贝，str和bytearray的切片操作会产生新的切片（拷贝数据）使用memoryview之后不会。
@@ -33,9 +29,6 @@ class Listener:
                 pass
 
     def stop(self):
-        # 监听信号 释放资源
-        self.epoll.unregister(self.sock.fileno())
-        self.epoll.close()
-        self.sock.close()
+        raise NotImplementedError
 
 

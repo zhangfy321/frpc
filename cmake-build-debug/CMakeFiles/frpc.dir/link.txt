@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/frpc.dir/main.cpp.o CMakeFiles/frpc.dir/server/server.cpp.o CMakeFiles/frpc.dir/config/config.cpp.o  -o frpc 
