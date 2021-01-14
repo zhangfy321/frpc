@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/frpc.dir/config/config.cpp.o"
   "CMakeFiles/frpc.dir/main.cpp.o"
+  "CMakeFiles/frpc.dir/server/Epoll.cpp.o"
   "CMakeFiles/frpc.dir/server/server.cpp.o"
+  "CMakeFiles/frpc.dir/server/worker.cpp.o"
   "frpc"
   "frpc.pdb"
 )

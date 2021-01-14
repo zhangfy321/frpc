@@ -6,7 +6,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/fy/frpc/config/config.cpp" "/Users/fy/frpc/cmake-build-debug/CMakeFiles/frpc.dir/config/config.cpp.o"
   "/Users/fy/frpc/main.cpp" "/Users/fy/frpc/cmake-build-debug/CMakeFiles/frpc.dir/main.cpp.o"
+  "/Users/fy/frpc/server/Epoll.cpp" "/Users/fy/frpc/cmake-build-debug/CMakeFiles/frpc.dir/server/Epoll.cpp.o"
   "/Users/fy/frpc/server/server.cpp" "/Users/fy/frpc/cmake-build-debug/CMakeFiles/frpc.dir/server/server.cpp.o"
+  "/Users/fy/frpc/server/worker.cpp" "/Users/fy/frpc/cmake-build-debug/CMakeFiles/frpc.dir/server/worker.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

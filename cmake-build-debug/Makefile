@@ -197,6 +197,33 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+server/Epoll.o: server/Epoll.cpp.o
+
+.PHONY : server/Epoll.o
+
+# target to build an object file
+server/Epoll.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/server/Epoll.cpp.o
+.PHONY : server/Epoll.cpp.o
+
+server/Epoll.i: server/Epoll.cpp.i
+
+.PHONY : server/Epoll.i
+
+# target to preprocess a source file
+server/Epoll.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/server/Epoll.cpp.i
+.PHONY : server/Epoll.cpp.i
+
+server/Epoll.s: server/Epoll.cpp.s
+
+.PHONY : server/Epoll.s
+
+# target to generate assembly for a file
+server/Epoll.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/server/Epoll.cpp.s
+.PHONY : server/Epoll.cpp.s
+
 server/server.o: server/server.cpp.o
 
 .PHONY : server/server.o
@@ -224,6 +251,33 @@ server/server.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/server/server.cpp.s
 .PHONY : server/server.cpp.s
 
+server/worker.o: server/worker.cpp.o
+
+.PHONY : server/worker.o
+
+# target to build an object file
+server/worker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/server/worker.cpp.o
+.PHONY : server/worker.cpp.o
+
+server/worker.i: server/worker.cpp.i
+
+.PHONY : server/worker.i
+
+# target to preprocess a source file
+server/worker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/server/worker.cpp.i
+.PHONY : server/worker.cpp.i
+
+server/worker.s: server/worker.cpp.s
+
+.PHONY : server/worker.s
+
+# target to generate assembly for a file
+server/worker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/frpc.dir/build.make CMakeFiles/frpc.dir/server/worker.cpp.s
+.PHONY : server/worker.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -239,9 +293,15 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... server/Epoll.o"
+	@echo "... server/Epoll.i"
+	@echo "... server/Epoll.s"
 	@echo "... server/server.o"
 	@echo "... server/server.i"
 	@echo "... server/server.s"
+	@echo "... server/worker.o"
+	@echo "... server/worker.i"
+	@echo "... server/worker.s"
 .PHONY : help
 
 
