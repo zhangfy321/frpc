@@ -27,11 +27,11 @@ libsqlite3-dev \
 
 RUN apt-get install sudo
 
-RUN echo "#!/bin/bash\nadduser deploy << EOF\npassword\npassword\ndeploy\n\n\n\nY\nEOF" >> create_deploy.sh \
-    && chmod 755 create_deploy.sh \
-    && ./create_deploy.sh \
-    && gpasswd -a deploy sudo \
-    && rm create_deploy.sh \
-    && chmod 644 /etc/sudoers \
-    && echo "deploy ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && passwd deploy
+# RUN echo "#!/bin/bash\nadduser deploy << EOF\npassword\npassword\ndeploy\n\n\n\nY\nEOF" >> create_deploy.sh \
+#     && chmod 755 create_deploy.sh \
+#     && ./create_deploy.sh \
+#     && gpasswd -a deploy sudo \
+#     && rm create_deploy.sh \
+#     && chmod 644 /etc/sudoers \
+#     && echo "deploy ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+#     && passwd deploy

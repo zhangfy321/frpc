@@ -29,25 +29,50 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd70f8f5-a0d6-4591-9383-7a05deb3e112" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/server/Epoll.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/Epoll.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/worker.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/worker.h" afterDir="false" />
+    <list default="true" id="626b5a85-e30d-455c-be9a-f6aed9b8dff7" name="默认的" comment="">
+      <change afterPath="$PROJECT_DIR$/server/BaseSocket.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/frpc.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/frpc.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/CXX.includecache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/main.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/frpc.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/frpc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/frpc.cbp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Epoll.h" beforeDir="false" afterPath="$PROJECT_DIR$/server/Epoll.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.h" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,22 +86,27 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1n3LviI1P9JDc9BB0xV7gdPXA7S" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="新增" />
-  </component>
+  <component name="ProjectId" id="1n5kQ8GXaR51ApTEGZpm2D4TPpw" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="dynamic.analysis.tools" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="远程 GDB 服务器.frpc">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -92,17 +122,27 @@
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="frpc" type="com.jetbrains.cidr.remote.gdbserver.type" factoryName="com.jetbrains.cidr.remote.gdbserver.factory" nameIsGenerated="true" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="frpc" TARGET_NAME="frpc" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="frpc" RUN_TARGET_NAME="frpc">
+      <custom-gdb-server version="1" gdb-connect="127.0.0.1:2223" executable="" warmup-ms="0" download-type="ALWAYS" hostId="2595919b-f953-4c97-a72c-6c55918f536c" uploadFile="/tmp/CLion/debug/frpc" defaultGdbServerArgs=":2223 /tmp/CLion/debug/frpc" />
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake 应用程序.frpc" />
+      <item itemvalue="远程 GDB 服务器.frpc" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="dd70f8f5-a0d6-4591-9383-7a05deb3e112" name="默认的" comment="" />
-      <created>1610614060819</created>
+      <changelist id="626b5a85-e30d-455c-be9a-f6aed9b8dff7" name="默认的" comment="" />
+      <created>1610687319659</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1610614060819</updated>
-      <workItem from="1610614063889" duration="3111000" />
-      <workItem from="1610620203727" duration="5580000" />
+      <updated>1610687319659</updated>
+      <workItem from="1610687321049" duration="1060000" />
+      <workItem from="1610688688468" duration="4839000" />
     </task>
     <servers />
   </component>
@@ -122,21 +162,46 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1338" height="201" key="GridCell.Tab.0.bottom" timestamp="1610616584948">
+    <state x="349" y="232" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610687781805">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1338" height="201" key="GridCell.Tab.0.bottom/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1610616584948" />
-    <state width="1338" height="201" key="GridCell.Tab.0.center" timestamp="1610616584947">
+    <state x="349" y="232" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1057@0.23.1920.1057" timestamp="1610687781805" />
+    <state width="1554" height="101" key="GridCell.Tab.0.bottom" timestamp="1610688591279">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1338" height="201" key="GridCell.Tab.0.center/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1610616584947" />
-    <state width="1338" height="201" key="GridCell.Tab.0.left" timestamp="1610616584946">
+    <state width="1554" height="101" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
+    <state width="1554" height="101" key="GridCell.Tab.0.center" timestamp="1610688591278">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1338" height="201" key="GridCell.Tab.0.left/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1610616584946" />
-    <state width="1338" height="201" key="GridCell.Tab.0.right" timestamp="1610616584947">
+    <state width="1554" height="101" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591278" />
+    <state width="1554" height="101" key="GridCell.Tab.0.left" timestamp="1610688591278">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1338" height="201" key="GridCell.Tab.0.right/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1610616584947" />
+    <state width="1554" height="101" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591278" />
+    <state width="1554" height="101" key="GridCell.Tab.0.right" timestamp="1610688591278">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1554" height="101" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591278" />
+    <state width="1554" height="101" key="GridCell.Tab.1.bottom" timestamp="1610688591279">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1554" height="101" key="GridCell.Tab.1.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
+    <state width="1554" height="101" key="GridCell.Tab.1.center" timestamp="1610688591279">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1554" height="101" key="GridCell.Tab.1.center/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
+    <state width="1554" height="101" key="GridCell.Tab.1.left" timestamp="1610688591279">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1554" height="101" key="GridCell.Tab.1.left/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
+    <state width="1554" height="101" key="GridCell.Tab.1.right" timestamp="1610688591279">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1554" height="101" key="GridCell.Tab.1.right/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
+    <state x="308" y="225" key="SettingsEditor" timestamp="1610694794022">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="308" y="225" key="SettingsEditor/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1610694794022" />
+    <state x="308" y="225" key="SettingsEditor/0.23.1920.1057@0.23.1920.1057" timestamp="1610687733957" />
   </component>
 </project>

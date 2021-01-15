@@ -9,7 +9,7 @@ using std::mutex;
 using std::try_to_lock;
 
 int Server::Run(){
-
+    return 0;
 };
 
 void Server::slave(){
@@ -18,12 +18,13 @@ void Server::slave(){
     struct sockaddr *cli_addr;
     cli_addr = Malloc(addrlen);
 
-    for ( ; ;){
+    for ( ; ; ){
         {
             unique_lock<mutex> m_lock(g_mutex, try_to_lock);
             if(m_lock.owns_lock()){
                 conn_fd = accept()
-            }else{
+            }
+            else{
                 continue;
             }
         }
