@@ -42,23 +42,21 @@ int Epoll::init_listen_fd()
             int fd = e.data.fd;
             if (fd != _listen_fd)  //注意if条件的顺序也会影响cpu预测性能
             {
-                switch (e.events)
+
+                if (e.events & EPOLLIN)
                 {
-                    case fd & EPOLLIN:
-                        break;
-                    case fd & EPOLLOUT:
-                        break;
-                    case fd & EPOLLERR:
-                        break;
-                    case fd &
-                    case fd & events[i].events & EPOLLERR ||
-                                  events[i].events & EPOLLHUP ||
-                                  !(events[i].events & EPOLLIN)) // error
-                        {
-                            std::cerr << "[E] epoll event error\n";
-                            close(events[i].data.fd);
-                        }
+                    receive_data(fd);
+                    //todo
                 }
+                else if (e.events & EPOLLERR || e.events & EPOLLHUP
+                {
+                    close(eve.data.fd);
+                }
+                else if (e.events & EPOLLOUT)
+                {
+
+                }
+                else if (e.e)
             }
             else
             {
@@ -85,7 +83,7 @@ size_t Epoll::send_data(int fd)
 
 bool Epoll::epoll_remove(int fd)
 {
-    if (epoll_ctl(_epfd, EPOLL_CTL_DEL, fd, NULL) < 0) {
+    if (epoll_ctl(_epoll_fd, EPOLL_CTL_DEL, fd, NULL) < 0) {
         LOG("epoll ctrl error");
         return false;
     }
