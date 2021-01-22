@@ -2,29 +2,23 @@
 // Created by fy on 2021/1/14.
 //
 
-#ifndef FRPC_EPOLL_H
-#define FRPC_EPOLL_H
+#ifndef FRPC_EPOLL_HPP
+#define FRPC_EPOLL_HPP
 #include <iostream>
 #include <vector>
 #include <sys/epoll.h>
-#include "tcpsocket.hpp"
+#include "base.hpp"
 
 class Epoll {
 private:
     int _epfd;
 public:
-    bool Init() {
-        //创建epoll
-
-        //接口原型：int epoll_create(int size);
+    bool run() {
         _epfd = epoll_create(1);
-        if (_epfd < 0) {
-            perror("epoll create error");
-            return false;
-        }
         return true;
     }
-    bool Add(TcpSocket sock, uint32_t events = 0) {
+
+    bool add(TcpSocket sock, uint32_t events = 0) {
         sock.SetNonBlock();
         int fd = sock.GetSockFd();
 
@@ -106,4 +100,4 @@ int main(){
 
 
 
-#endif //FRPC_EPOLL_H
+#endif //FRPC_EPOLL_HPP

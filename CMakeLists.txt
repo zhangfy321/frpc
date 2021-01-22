@@ -3,4 +3,4 @@ project(frpc)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(frpc main.cpp server/BaseSocket.hpp)
+add_executable(frpc main.cpp server/io/base.hpp server/io/iouring.cpp)

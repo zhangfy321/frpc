@@ -1,4 +1,3 @@
 # FRPC
 
-### 参考
-Clion利用Docker开发和调试Linux C/C++程序: https://www.cnblogs.com/davidhhuan/p/13227139.html
+事物总是螺旋上升发展的，起步的时候不要贪多，找准一个方向先跑通，之后再快速迭代让项目趋于完善。

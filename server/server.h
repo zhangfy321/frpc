@@ -15,7 +15,7 @@ public:
     Server() {
         int opt = 1;
         address.sin_port = htons(8000);     //主机字节顺序转变成网络字节顺序
-        address.sin_addr.s_addr = INADDR_ANY; //绑定到任意地址
+        address.sin_addr.s_addr = INADDR_ANY;  //绑定到任意地址
         address.sin_family = AF_INET;
 
         sock_fd = socket(AF_INET, SOCK_STREAM, 0); //AF_INET（IPv4协议） SOCK_STREAM：TCP
