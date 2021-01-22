@@ -2,8 +2,6 @@
 // Created by fy on 2021/1/15.
 //
 
-#ifndef FRPC_BASESOCKET_HPP
-#define FRPC_BASESOCKET_HPP
 #include <string>
 #include <unistd.h>
 #include <cstdlib>
@@ -11,15 +9,8 @@
 #include <cstring>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <sys/socket.h>
 #include <fcntl.h>
-#include <iostream>
-using std::cout;
-using std::endl;
-inline void LOG(const std::string &str)
-{
-    std::cout << str << std::endl;
-}
+#include "base.h"
 
 int init_server_socket(uint16_t *port)
 {

@@ -3,4 +3,4 @@ project(frpc)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(frpc main.cpp server/io/base.hpp server/io/iouring.cpp)
+add_executable(frpc main.cpp server/io/base.cpp server/io/iouring.cpp server/io/base.h server/io/epoll.h)

@@ -2,43 +2,25 @@
 // Created by fy on 2021/1/14.
 //
 #include "server.h"
+#include "io/base.cpp"
 #include <thread>
+#include "worker.h"
 using std::thread;
-using std::unique_lock;
-using std::mutex;
-using std::try_to_lock;
+//using std::unique_lock;
+//using std::mutex;
+//using std::try_to_lock;
 
 int Server::Run(){
-    return 0;
-};
-
-void Server::slave(){
-    int conn_fd;
-    void handler(int);
-    struct sockaddr *cli_addr;
-    cli_addr = Malloc(addrlen);
-
-    for ( ; ; ){
-        {
-            unique_lock<mutex> m_lock(g_mutex, try_to_lock);
-            if(m_lock.owns_lock()){
-                conn_fd = accept()
-            }
-            else{
-                continue;
-            }
-        }
-
+    for (uint32_t i = 0; i < _thread_cnt; i++)
+    {
+        auto worker = std::make_shared<Worker>();
+        thread t_epoll(worker);
+        t_epoll.join();
     }
-}
-
-int Server::master(){
-    for(uint32_t i = 0; i < work_num; i++){
-        thread t(Server::slave);
-    }
-
-
     return 0;
 }
 
+void Server::watch()
+{
 
+}

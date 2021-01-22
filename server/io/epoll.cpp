@@ -2,12 +2,12 @@
 // Created by fy on 2021/1/14.
 //
 
-#ifndef FRPC_EPOLL_HPP
-#define FRPC_EPOLL_HPP
+#ifndef FRPC_EPOLL_CPP
+#define FRPC_EPOLL_CPP
 #include <iostream>
 #include <vector>
-#include <sys/epoll.h>
-#include "base.hpp"
+#include "base.cpp"
+#include "epoll.h"
 
 class Epoll {
 private:
@@ -100,4 +100,4 @@ int main(){
 
 
 
-#endif //FRPC_EPOLL_HPP
+#endif //FRPC_EPOLL_CPP

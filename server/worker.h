@@ -5,10 +5,17 @@
 #ifndef FRPC_WORKER_H
 #define FRPC_WORKER_H
 
+#include <iostream>
+
+
 
 class Worker {
-private:
+public:
+    Worker() = default;
 
+    void operator ()();
+private:
+    thread_local uint32_t
 };
 
 
