@@ -9,95 +9,87 @@
 #include "base.cpp"
 #include "epoll.h"
 
-class Epoll {
-private:
-    int _epfd;
-public:
-    bool run() {
-        _epfd = epoll_create(1);
-        return true;
+
+int Epoll::init_listen_fd()
+{
+    struct epoll_event ev;
+    ev.events = EPOLLIN | EPOLLET;
+    uint16_t port = 8000;
+    ev.data.fd = init_server_socket(&port);
+
+    //epoll_ctl(int epfd,int op,int fd,struct epoll_event *event);
+    if ( epoll_ctl(_epoll_fd, EPOLL_CTL_ADD, ev.data.fd, ev) < 0 )
+    {
+        LOG("epoll ctrl error");
+        return -1;
     }
+    return ev.data.fd;
+}
 
-    bool add(TcpSocket sock, uint32_t events = 0) {
-        sock.SetNonBlock();
-        int fd = sock.GetSockFd();
-
-        //定义事件
-        struct epoll_event ev;
-        ev.events = EPOLLIN | events;
-        ev.data.fd = fd;
-
-        //接口原型：epoll_ctl(int epfd,int op,int fd,struct epoll_event *event);
-        int ret = epoll_ctl(_epfd, EPOLL_CTL_ADD, fd, &ev);
-        if (ret < 0) {
-            perror("epoll ctrl error");
-            return false;
-        }
-        return true;
-    }
-    bool Del(TcpSocket sock) {
-        int fd = sock.GetSockFd();
-        int ret = epoll_ctl(_epfd, EPOLL_CTL_DEL, fd, NULL);
-        if (ret < 0) {
-            perror("epoll ctrl error");
-            return false;
-        }
-        return true;
-    }
-    bool Wait(std::vector<TcpSocket> &list, int ms_timeout = 3000) {
-        //接口原型：int epoll_wait(int epfd, struct epoll_event *events,
-        //  int maxevents, int timeout);
-        struct epoll_event evs[10];
-        int nfds = epoll_wait(_epfd, evs, 10, ms_timeout);
-        if (nfds < 0) {
-            perror("epoll wait error");
-            return false;
-        }else if (nfds == 0) {
-            std::cout << "epoll wait timeout\n";
-            return false;
-        }
-        for (int i = 0; i < nfds; i++) {
-            int fd = evs[i].data.fd;
-            TcpSocket sock;
-            sock.SetSockFd(fd);
-            list.push_back(sock);
-        }
-        return true;
-    }
-};
-
-int main(){
-    TcpSocket lst_sock;			//listen socket：监听socket
-    CHECK_RET(lst_sock.Socket());
-    CHECK_RET(lst_sock.Bind("0.0.0.0", 9000));
-    CHECK_RET(lst_sock.Listen());
-
-    Epoll epoll;
-    CHECK_RET(epoll.Init());
-    CHECK_RET(epoll.Add(lst_sock, EPOLLET));
-    while(1) {
-        std::vector<TcpSocket> list;
-        bool ret = epoll.Wait(list);
-        if (ret == false) {
+[[noreturn]] void Epoll::main_loop()  //非常关键的代码，每一步都要保证高效
+{
+    struct epoll_event ev, es[10];
+    for( ; ; )
+    {
+//        memset(es, 0, sizeof(es));
+        int nfds = epoll_wait(_epoll_fd, es, 10, 3000);
+        if (nfds <= 0) {
+            LOG("epoll wait timeout or error");
             continue;
         }
-        for (int i = 0; i < list.size(); i++) {
-            if (list[i].GetSockFd() == lst_sock.GetSockFd()) {
-                TcpSocket cli_sock;
-                lst_sock.Accept(cli_sock);
-                epoll.Add(cli_sock, EPOLLET);
-            }else {
-                std::string buf;
-                list[i].Recv(buf);
-                std::cout << "client say: " << buf << std::endl;
+
+        for (auto &e : es) {
+            int fd = e.data.fd;
+            if (fd != _listen_fd)  //注意if条件的顺序也会影响cpu预测性能
+            {
+                switch (e.events)
+                {
+                    case fd & EPOLLIN:
+                        break;
+                    case fd & EPOLLOUT:
+                        break;
+                    case fd & EPOLLERR:
+                        break;
+                    case fd &
+                    case fd & events[i].events & EPOLLERR ||
+                                  events[i].events & EPOLLHUP ||
+                                  !(events[i].events & EPOLLIN)) // error
+                        {
+                            std::cerr << "[E] epoll event error\n";
+                            close(events[i].data.fd);
+                        }
+                }
+            }
+            else
+            {
+                struct sockaddr_in addr {};
+                e.events = EPOLLIN | EPOLLET;
+                e.data.fd = accept(_epoll_fd, (struct sockaddr *) &addr, sizeof(addr));
+                setnonblocking(new_cli_fd); //todo
+                epoll_ctl(_epoll_fd, EPOLL_CTL_ADD, e.data.fd, ev);
             }
         }
-
     }
-    lst_sock.Close();
-    return 0;
 }
 
 
+size_t Epoll::receive_data(int fd)
+{
+
+}
+
+size_t Epoll::send_data(int fd)
+{
+
+}
+
+bool Epoll::epoll_remove(int fd)
+{
+    if (epoll_ctl(_epfd, EPOLL_CTL_DEL, fd, NULL) < 0) {
+        LOG("epoll ctrl error");
+        return false;
+    }
+    return true;
+}
 
 #endif //FRPC_EPOLL_CPP

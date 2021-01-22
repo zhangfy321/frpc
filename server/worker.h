@@ -6,8 +6,7 @@
 #define FRPC_WORKER_H
 
 #include <iostream>
-
-
+#include "io/epoll.h"
 
 class Worker {
 public:
@@ -15,7 +14,7 @@ public:
 
     void operator ()();
 private:
-    thread_local uint32_t
+    Epoll m_epoll;
 };
 
 

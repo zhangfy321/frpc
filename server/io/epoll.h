@@ -5,17 +5,36 @@
 #ifndef FRPC_EPOLL_H
 #define FRPC_EPOLL_H
 #include <sys/epoll.h>
+#include <memory>
+#include "base.cpp"
 
-enum EventType
-{
-    EOUT = EPOLLOUT,	  // 写事件
-    ECLOSE = EPOLLRDHUP,  // 对端关闭连接或者写半部
-    EPRI = EPOLLPRI,	  // 紧急数据到达
-    EERR = EPOLLERR,	  // 错误事件
-    EET = EPOLLET, 		  // 边缘触发
-    EDEFULT = EIN | ECLOSE | EERR | EET
-};
+class Epoll {
 
+public:
+    Epoll() {
+        _epollfd = epoll_create1(0);
+        if (_epoll_fd == -1) {
+            LOG("epoll_create1");
+        }
+        _listen_fd = init_listen_fd();
+    };
+
+    [[noreturn]] void main_loop();
+
+private:
+    int init_listen_fd();
+
+    bool epoll_add(int fd);
+
+    bool epoll_remove(int fd);
+
+    size_t receive_data(int fd);
+
+    size_t send_data(int fd);
+
+    int _listen_fd = -1;
+    int _epoll_fd = -1;
+}
 
 
 #endif //FRPC_EPOLL_H

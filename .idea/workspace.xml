@@ -30,16 +30,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="626b5a85-e30d-455c-be9a-f6aed9b8dff7" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/server/io/base.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/io/epoll.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/codec.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/codec.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/io/base.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/server/io/base.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/io/epoll.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/server/io/epoll.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.h" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/io/epoll.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/server/io/epoll.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/io/epoll.h" beforeDir="false" afterPath="$PROJECT_DIR$/server/io/epoll.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/worker.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/server/worker.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/worker.h" beforeDir="false" afterPath="$PROJECT_DIR$/server/worker.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/worker_thread.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +113,7 @@
       <workItem from="1610688688468" duration="5863000" />
       <workItem from="1610939074639" duration="1138000" />
       <workItem from="1611024745385" duration="3078000" />
-      <workItem from="1611194915235" duration="9212000" />
+      <workItem from="1611194915235" duration="17467000" />
     </task>
     <servers />
   </component>
