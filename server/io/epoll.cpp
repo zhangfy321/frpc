@@ -13,7 +13,7 @@
 int Epoll::init_listen_fd()
 {
     struct epoll_event ev;
-    ev.events = EPOLLIN | EPOLLET;
+    ev.events = EPOLLIN | EPOLLLT;
     uint16_t port = 8000;
     ev.data.fd = init_server_socket(&port);
 
@@ -32,7 +32,7 @@ int Epoll::init_listen_fd()
     for( ; ; )
     {
 //        memset(es, 0, sizeof(es));
-        int nfds = epoll_wait(_epoll_fd, es, 10, 3000); //注意这里的超时时间最低为几毫秒（轮转频率）
+        int nfds = epoll_wait(_epoll_fd, es, 10, 0); //注意这里的超时时间最低为几毫秒（轮转频率）
         if (nfds <= 0) {
             LOG("epoll wait timeout or error");
             continue;
@@ -73,7 +73,24 @@ int Epoll::init_listen_fd()
 
 size_t Epoll::receive_data(int fd)
 {
-    recv();
+    char * buf = new char[65535]; //tmp
+    for (;;)
+    {
+        if (recv(fd, buf, 1024, 0) == -1)
+        {
+            if (errno == EAGAIN or errno == EWOULDBLOCK)
+            {
+                printf("recv finish detected, quit...\n");
+                break;
+            }
+        }
+    }
+
+    for (size_t i = 0; i < 65535; i++)
+    {
+        if
+    }
+
 }
 
 size_t Epoll::send_data(int fd)
@@ -90,17 +107,22 @@ bool Epoll::epoll_remove(int fd)
     return true;
 }
 
-int Epoll::set_nonblocking(int fd) //todo 检验正确性
+void setnonblocking(int fd)
 {
-    //将监听socker设置为非阻塞的
-    int flag = fcntl(fd, F_GETFL, 0);
-    int new_flag = flag | O_NONBLOCK;
-    if(fcntl(fd, F_SETFL, new_flag)==-1)
+    int  opts;
+    opts = fcntl(fd, F_GETFL);
+    if (opts < 0 )
     {
-        close(fd);
-        return -1;
+        perror("fcntl(sock, GETFL)");
+        exit(1);
     }
-    return flag;
+    opts  =  opts | O_NONBLOCK;
+    if (fcntl(fd, F_SETFL,opts) < 0 )
+    {
+        perror( " fcntl(sock,SETFL,opts) " );
+        exit( 1 );
+    }
 }
+
 
 #endif //FRPC_EPOLL_CPP

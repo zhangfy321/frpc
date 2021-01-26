@@ -7,7 +7,7 @@
 
 #include <cstdint>
 #include <atomic>
-//单写多读 读指针用原子变量
+//单写多读 目前暂时采用STL，后续改造为读指针用原子变量CAS操作
 class InQueue {
 public:
     InQueue(){

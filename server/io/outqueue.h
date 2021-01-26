@@ -7,7 +7,7 @@
 
 #include <cstdint>
 #include <atomic>
-//多写单读 读指针用原子变量
+//多写单读 目前暂时采用STL，后续改造为写指针用原子变量CAS操作
 class OutQueue {
 public:
     OutQueue(){
@@ -16,6 +16,7 @@ public:
     int write();
 
     int read();
+
 private:
     uint32_t _writeIdx = 0;
     std::atomic<uint32_t> _readIdx;
