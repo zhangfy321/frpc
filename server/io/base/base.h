@@ -19,7 +19,7 @@ inline void LOG(const std::string &str)
     std::cout << str << std::endl;
 }
 
-int init_server_socket(uint16_t *port);
+int init_server_socket(const uint16_t *port);
 bool connect(int fd, const std::string &ip, uint16_t port);
 bool SendWithNoCopy(int fd, const char *buf, size_t len);
 bool SendFileWithNoCopy(int out_fd, int in_fd, off_t *offset, size_t count);

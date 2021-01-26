@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include "base.h"
 
-int init_server_socket(uint16_t *port)
+int init_server_socket(const uint16_t *port)
 {
     int fd = socket(AF_INET, SOCK_STREAM|SOCK_NONBLOCK, IPPROTO_TCP);    //AF_INET（IPv4协议） SOCK_STREAM：TCP
     if (fd  == -1)

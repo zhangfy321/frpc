@@ -6,7 +6,7 @@
 #define FRPC_EPOLL_H
 #include <sys/epoll.h>
 #include <memory>
-#include "base.cpp"
+#include "base/base.cpp"
 
 class Epoll {
 
@@ -24,17 +24,17 @@ public:
 private:
     int init_listen_fd();
 
-    bool epoll_add(int fd);
-
     bool epoll_remove(int fd);
 
     size_t receive_data(int fd);
 
     size_t send_data(int fd);
 
+    int set_nonblocking(int fd);
+
     int _listen_fd = -1;
     int _epoll_fd = -1;
-}
+};
 
 
 #endif //FRPC_EPOLL_H

@@ -6,7 +6,7 @@
 #define FRPC_EPOLL_CPP
 #include <iostream>
 #include <vector>
-#include "base.cpp"
+#include "base/base.cpp"
 #include "epoll.h"
 
 
@@ -32,7 +32,7 @@ int Epoll::init_listen_fd()
     for( ; ; )
     {
 //        memset(es, 0, sizeof(es));
-        int nfds = epoll_wait(_epoll_fd, es, 10, 3000);
+        int nfds = epoll_wait(_epoll_fd, es, 10, 3000); //注意这里的超时时间最低为几毫秒（轮转频率）
         if (nfds <= 0) {
             LOG("epoll wait timeout or error");
             continue;
@@ -42,11 +42,11 @@ int Epoll::init_listen_fd()
             int fd = e.data.fd;
             if (fd != _listen_fd)  //注意if条件的顺序也会影响cpu预测性能
             {
-
                 if (e.events & EPOLLIN)
                 {
                     receive_data(fd);
-                    //todo
+                    //调研之后，出于性能要求，实现一个定长块或变长块buffer池，用链表和原子变量指针来实现单读多写队列（入包）
+                    // 和多写单读队列（回包）*自定义智能指针的删除器，在析构时将内存块放回内存池。
                 }
                 else if (e.events & EPOLLERR || e.events & EPOLLHUP
                 {
@@ -60,10 +60,10 @@ int Epoll::init_listen_fd()
             }
             else
             {
-                struct sockaddr_in addr {};
-                e.events = EPOLLIN | EPOLLET;
-                e.data.fd = accept(_epoll_fd, (struct sockaddr *) &addr, sizeof(addr));
-                setnonblocking(new_cli_fd); //todo
+                struct sockaddr_in addr;
+                e.events = EPOLLIN | EPOLLLT;
+                e.data.fd = accept(_listen_fd, (struct sockaddr *) &addr, sizeof(addr));
+                set_nonblocking(e.data.fd); //todo
                 epoll_ctl(_epoll_fd, EPOLL_CTL_ADD, e.data.fd, ev);
             }
         }
@@ -73,7 +73,7 @@ int Epoll::init_listen_fd()
 
 size_t Epoll::receive_data(int fd)
 {
-
+    recv();
 }
 
 size_t Epoll::send_data(int fd)
@@ -88,6 +88,19 @@ bool Epoll::epoll_remove(int fd)
         return false;
     }
     return true;
+}
+
+int Epoll::set_nonblocking(int fd) //todo 检验正确性
+{
+    //将监听socker设置为非阻塞的
+    int flag = fcntl(fd, F_GETFL, 0);
+    int new_flag = flag | O_NONBLOCK;
+    if(fcntl(fd, F_SETFL, new_flag)==-1)
+    {
+        close(fd);
+        return -1;
+    }
+    return flag;
 }
 
 #endif //FRPC_EPOLL_CPP
