@@ -1,5 +1,6 @@
 # coding: utf8
 
+# Server主要用来加载全局配置和启动多个worker
 class Server:
     def __init__(self):
         pass
