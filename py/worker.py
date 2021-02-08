@@ -28,7 +28,7 @@ class Worker:
                     self.conns[conn.fileno()] = conn
                     self.inq[conn.fileno()] = Queue(QUEUE_MAXIMUM)
                     self.outq[conn.fileno()] = Queue(QUEUE_MAXIMUM)
-                    self.last[conn.fileno()] = bytearray()
+                    self.buffers[conn.fileno()] = bytearray()
 
                 elif ev & select.EPOLLIN:
                     conn = self.conns[fd]
@@ -41,7 +41,7 @@ class Worker:
                     else:
                         for idx, msg in enumerate(msgs):
                             if len(msg):
-                                last = self.buffers[fd]
+                                last = self.buffers.get(fd)
                                 if idx < len(msgs):  # 后面还有说明本段构成了完整消息
                                     self.inq[fd].put(last + bytearray(msg))
                                     self.buffers[fd] = bytearray()
