@@ -28,6 +28,7 @@ class Worker:
                     self.conns[conn.fileno()] = conn
                     self.inq[conn.fileno()] = Queue(QUEUE_MAXIMUM)
                     self.outq[conn.fileno()] = Queue(QUEUE_MAXIMUM)
+                    self.last[conn.fileno()] = bytearray()
 
                 elif ev & select.EPOLLIN:
                     conn = self.conns[fd]
