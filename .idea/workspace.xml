@@ -19,22 +19,18 @@
     <select />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
-    <generated>
-      <config projectName="frpc" targetName="frpc" />
-    </generated>
+    <generated />
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="626b5a85-e30d-455c-be9a-f6aed9b8dff7" name="默认的" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/io/epoll.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/server/io/epoll.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/io/inqueue.h" beforeDir="false" afterPath="$PROJECT_DIR$/server/io/inqueue.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/io/outqueue.h" beforeDir="false" afterPath="$PROJECT_DIR$/server/io/outqueue.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +40,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -58,11 +53,13 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="web.server" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -71,32 +68,25 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake 应用程序.frpc">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="frpc" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="frpc" TARGET_NAME="frpc" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="frpc" RUN_TARGET_NAME="frpc">
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="frpc" type="com.jetbrains.cidr.remote.gdbserver.type" factoryName="com.jetbrains.cidr.remote.gdbserver.factory" nameIsGenerated="true" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="frpc" TARGET_NAME="frpc" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="frpc" RUN_TARGET_NAME="frpc">
-      <custom-gdb-server version="1" gdb-connect="127.0.0.1:2223" executable="" warmup-ms="0" download-type="ALWAYS" hostId="2595919b-f953-4c97-a72c-6c55918f536c" uploadFile="/tmp/CLion/debug/frpc" defaultGdbServerArgs=":2223 /tmp/CLion/debug/frpc" />
+    <configuration name="frpc" type="com.jetbrains.cidr.remote.gdbserver.type" factoryName="com.jetbrains.cidr.remote.gdbserver.factory" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="frpc" TARGET_NAME="frpc" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="frpc" RUN_TARGET_NAME="frpc">
+      <custom-gdb-server version="1" gdb-connect="127.0.0.1:2223" executable="" warmup-ms="0" download-type="ALWAYS" hostId="2595919b-f953-4c97-a72c-6c55918f536c" uploadFile="/tmp/CLion/debug/frpc" defaultGdbServerArgs=":2223 /tmp/CLion/debug/frpc">
+        <debugger kind="GDB" isBundled="true" />
+      </custom-gdb-server>
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="CMake 应用程序.frpc" />
-      <item itemvalue="远程 GDB 服务器.frpc" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -112,6 +102,7 @@
       <workItem from="1611024745385" duration="3078000" />
       <workItem from="1611194915235" duration="20792000" />
       <workItem from="1611559910708" duration="20198000" />
+      <workItem from="1612755399535" duration="126000" />
     </task>
     <servers />
   </component>
@@ -129,64 +120,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="349" y="232" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610687781805">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state x="349" y="232" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1057@0.23.1920.1057" timestamp="1610687781805" />
-    <state x="747" y="336" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1611284127320">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state x="747" y="336" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1920.1057@0.23.1920.1057" timestamp="1611284127320" />
-    <state width="1554" height="261" key="GridCell.Tab.0.bottom" timestamp="1611647813579">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="261" key="GridCell.Tab.0.bottom/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1611647813579" />
-    <state width="1554" height="257" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1611132325038" />
-    <state width="1554" height="261" key="GridCell.Tab.0.center" timestamp="1611647813578">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="261" key="GridCell.Tab.0.center/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1611647813578" />
-    <state width="1554" height="257" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1611132325037" />
-    <state width="1554" height="261" key="GridCell.Tab.0.left" timestamp="1611647813577">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="261" key="GridCell.Tab.0.left/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1611647813577" />
-    <state width="1554" height="257" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1611132325037" />
-    <state width="1554" height="261" key="GridCell.Tab.0.right" timestamp="1611647813578">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="261" key="GridCell.Tab.0.right/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1611647813578" />
-    <state width="1554" height="257" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1611132325038" />
-    <state width="1554" height="101" key="GridCell.Tab.1.bottom" timestamp="1610688591279">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="101" key="GridCell.Tab.1.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
-    <state width="1554" height="101" key="GridCell.Tab.1.center" timestamp="1610688591279">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="101" key="GridCell.Tab.1.center/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
-    <state width="1554" height="101" key="GridCell.Tab.1.left" timestamp="1610688591279">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="101" key="GridCell.Tab.1.left/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
-    <state width="1554" height="101" key="GridCell.Tab.1.right" timestamp="1610688591279">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state width="1554" height="101" key="GridCell.Tab.1.right/0.23.1920.1057@0.23.1920.1057" timestamp="1610688591279" />
-    <state x="308" y="225" key="SettingsEditor" timestamp="1611036822740">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state x="308" y="225" key="SettingsEditor/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1610694794022" />
-    <state x="308" y="225" key="SettingsEditor/0.23.1920.1057@0.23.1920.1057" timestamp="1611036822740" />
-    <state x="722" y="484" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1611644612436">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state x="722" y="484" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1920.1057/1920.23.1080.1897@0.23.1920.1057" timestamp="1611644612436" />
-    <state x="682" y="325" key="refactoring.ChangeSignatureDialog" timestamp="1611284195128">
-      <screen x="0" y="23" width="1920" height="1057" />
-    </state>
-    <state x="682" y="325" key="refactoring.ChangeSignatureDialog/0.23.1920.1057@0.23.1920.1057" timestamp="1611284195128" />
   </component>
 </project>
