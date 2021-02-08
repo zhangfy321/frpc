@@ -11,7 +11,7 @@ def init_server_socket():
         logger.error("init_server_socket failed")
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,
                     1)  # 内核级负载均衡 https://blog.csdn.net/dog250/article/details/51510823
-    sock.setblocking(True)
+    sock.setblocking(0)
     sock.bind((ADDR, PORT))
     sock.listen(QUEUE_SIZE)
     return sock
