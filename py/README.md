@@ -16,3 +16,12 @@
 - L.append(L[-1])
 - L[i] = L[j]
 - D[x] = D[x] + 1
+
+## todolist
+- 分布式一致性KV（服务发现） 用zookeeper 服务治理平台
+- proto option extension
+- 维护fd timeout
+- 配置加载
+- 监控打点上报
+- es日志管理
+- 配置下发

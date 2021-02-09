@@ -1,4 +1,7 @@
 # coding: utf8
+import ioworker
+import worker
+
 
 # Server主要用来加载全局配置和启动多个worker
 class Server:
@@ -8,8 +11,13 @@ class Server:
     def _set_config(self):
         pass
 
-    def handler(self):
-        pass
+    def Run(self):
+        pass # 多进程多线程启动IO和Worker
 
-    def run(self):
-        pass
+    def _run_ioloop(self):
+        ioloop = ioworker.IOWorker({}, {}, {})
+        ioloop.run()
+
+    def _run_handler(self):
+        worker = worker.Worker()
+        worker.run()

@@ -1,13 +1,13 @@
 syntax = "proto3";
-package demo;
+package server;
 
-message HelloRequest {
-    string method = 1
+message BaseRequest {
+    uint32 method_id = 1 //todo 添加option扩展
     string message = 2;
 }
 
-message HelloReply {
-    string method = 1;
+message BaseReply {
+    uint32 method_id = 1;
     string message = 2;
 }
 
