@@ -2,12 +2,10 @@ syntax = "proto3";
 package server;
 
 message BaseRequest {
-    uint32 method_id = 1 //todo 添加option扩展
-    string message = 2;
+    string message = 1;
 }
 
 message BaseReply {
-    uint32 method_id = 1;
-    string message = 2;
+    string message = 1;
 }
 
