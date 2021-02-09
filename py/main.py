@@ -1,7 +1,7 @@
 import loguru
-import worker
+import ioworker
 
 
 if __name__ == '__main__':
-    w = worker.Worker()
+    w = ioworker.IOWorker()
     w.run()

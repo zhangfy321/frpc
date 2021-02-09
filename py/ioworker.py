@@ -7,7 +7,7 @@ from queue import Queue
 import socket
 
 
-class Worker:
+class IOWorker:
     def __init__(self):
         self.m_sock = base.init_server_socket()
         self.epoll = select.epoll()
@@ -54,6 +54,7 @@ class Worker:
                                 last = self.buffers.get(fd)
                                 if idx < len(msgs):  # 后面还有说明本段构成了完整消息
                                     self.inq[fd].put(last + bytearray(msg))
+                                    logger.debug("put to inq...")
                                     self.buffers[fd] = bytearray()
                                 else:
                                     self.buffers[fd] = bytearray(msg)
