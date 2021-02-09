@@ -1,4 +1,3 @@
-from proto.helloworld_pb2 import HelloRequest
 from proto import helloworld_pb2
 from loguru import logger
 import select
