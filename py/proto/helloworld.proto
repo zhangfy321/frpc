@@ -1,11 +1,11 @@
 syntax = "proto3";
 package server;
 
-message BaseRequest {
+message HelloRequest {
     string message = 1;
 }
 
-message BaseReply {
+message HelloReply {
     string message = 1;
 }
 
