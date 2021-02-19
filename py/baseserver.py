@@ -19,22 +19,31 @@ class Server:
 
     def Run(self):
         IO_NUM = max(round(WORKER_NUM * 0.2), 1)
+        ps = []
         for _ in range(IO_NUM):
             p = mp.Process(target=Server._run_ioloop, args=(self.inq, self.outq, self.buffers))
-            p.start()
-            p.join()
-            logger.debug("_run_ioloop process running...")
-
+            p.daemon = True
+            ps.append(p)
+            
         for _ in range(WORKER_NUM - IO_NUM):
             p = mp.Process(target=Server._run_handler, args=(self.inq, self.outq))
+            p.daemon = True
+            ps.append(p)
+
+        # 开始运行
+        for p in ps:
             p.start()
+
+        # 阻塞父进程
+        for p in ps:
             p.join()
-            logger.debug("_run_handler process running...")
 
     @staticmethod
     def _run_ioloop(inq, outq, buffers):
+        # logger.debug("_run_ioloop process running...")
         ioworker.IOWorker(inq, outq, buffers).run()
 
     @staticmethod
     def _run_handler(inq, outq):
+        # logger.debug("_run_handler process running...")
         worker.Worker(inq, outq).run()

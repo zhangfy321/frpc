@@ -1,22 +1,20 @@
-import asyncio
 from proto.helloworld_pb2 import HelloRequest
-from conf.conf import DELI
+from conf.conf import DELIM
+import socket
 
-
-async def tcp_echo_client():
-    reader, writer = await asyncio.open_connection(
-        '42.193.182.50', 8001)
-
+def tcp_echo_client():
+    sock = socket.socket()
+    sock.connect(('localhost', 8001))
     req = HelloRequest()
-    req.message = "aeonzhang"
-    data1 = req.SerializeToString() + DELI + req.SerializeToString()[:10]
-    data2 = req.SerializeToString()[10:] + DELI
-    writer.write(data1)
-    writer.write(data2)
-    data = await reader.read(100)
+    req.message = "hello"
+    method_id = 1
+    data1 = method_id.to_bytes(2, 'big') + req.SerializeToString() + DELIM
+    print("send...")
+    sock.send(data1)
+    data = sock.recv(100)
     print(f'Received: {data.decode()!r}')
-    writer.close()
+    sock.close()
 
 
 if __name__ == '__main__':
-    asyncio.run(tcp_echo_client())
+    tcp_echo_client()

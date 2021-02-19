@@ -8,6 +8,7 @@ import socket
 
 class IOWorker: 
     def __init__(self, inq, outq, buffers):
+        logger.debug("init server socket")
         self.m_sock = base.init_server_socket()
         self.epoll = select.epoll()
         self.m_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
@@ -30,12 +31,13 @@ class IOWorker:
     def on_connect(self, fd):
         try:
             while True:
+                logger.debug("on connect")
                 conn, addr = self.m_sock.accept()
-                conn.setblocking(0)
                 logger.debug(f"new connection incomes: {addr}")
+                conn.setblocking(0)
                 self.epoll.register(conn.fileno(), select.EPOLLIN | select.EPOLLET)
                 self.conns[conn.fileno()] = conn
-                self.inq[conn.fileno()] = Queue(QUEUE_MAXIMUM)
+                self.inq[conn.fileno()] = bytearray()
                 self.outq[conn.fileno()] = bytearray()
                 self.buffers[conn.fileno()] = bytearray()
         except Exception as e:
@@ -51,7 +53,7 @@ class IOWorker:
         except Exception as e:
             logger.error(e)
         logger.debug(f"recv data legth: {len(data)}")
-        msgs = data.split(DELI)  # 每个消息尾部加上DELI
+        msgs = data.split(DELIM)  # 每个消息尾部加上DELIM
         if len(msgs) == 0:
             self.buffers[fd] = self.buffers[fd] + bytearray(data)
         else:
@@ -59,13 +61,13 @@ class IOWorker:
                 if len(msg):
                     last = self.buffers.get(fd)
                     if idx < len(msgs):  # 后面还有说明本段构成了完整消息
-                        self.inq[fd].put(last + bytearray(msg))
+                        self.inq[fd] = last + bytearray(msg) + DELIM
                         logger.debug("put to inq...")
                         self.buffers[fd] = bytearray()
                     else: 
                         self.buffers[fd] = bytearray(msg)
-            while not self.inq[fd].empty():
-                logger.debug(f"message: {self.inq[fd].get()}")
+            # while not len(self.inq[fd]):
+            #     logger.debug(f"message: {self.inq[fd].get()}")
         logger.debug(f"in: {data}")
         self.epoll.modify(fd, select.EPOLLOUT | select.EPOLLET)
  
@@ -92,7 +94,8 @@ class IOWorker:
         self.epoll.unregister(fd)
         self.conns[fd].close()
         del self.conns[fd]
-        del self.inq[fd]
+        if self.inq.get(fd, None):
+            del self.inq[fd]
         del self.outq[fd]
 
 # class Sock: # 计时/排序
