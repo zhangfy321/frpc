@@ -1,12 +1,9 @@
-from proto import helloworld_pb2
 from loguru import logger
 import select
 import utils.base as base
 from conf.conf import *
 from queue import Queue
 import socket
-import heapq
-import time
 
 
 class IOWorker: 
@@ -17,9 +14,9 @@ class IOWorker:
         self.epoll.register(self.m_sock.fileno(), select.EPOLLIN | select.EPOLLET)
 
         self.conns = {} 
-        self.inq = inq # 入包
-        self.outq = outq # 出包
-        self.buffers = buffers # 用于处理粘包
+        self.inq = inq  # 入包
+        self.outq = outq  # 出包
+        self.buffers = buffers  # 用于处理粘包
 
     def run(self):
         while True:
@@ -29,13 +26,6 @@ class IOWorker:
                 elif ev & select.EPOLLIN: self.on_read(fd)
                 elif ev & select.EPOLLOUT: self.on_write(fd)
                 else: self.on_close(fd)
-                
-
-    def decode(data):
-        pass
-
-    def encode(data):
-        pass
 
     def on_connect(self, fd):
         try:
@@ -83,7 +73,7 @@ class IOWorker:
         logger.debug("EPOLL OUT")
         if not len(self.outq[fd]): # 没有回包，下次再说
             self.epoll.modify(fd, select.EPOLLOUT | select.EPOLLET) # 手动触发out事件
-            continue
+            return
         data = memoryview(self.outq[fd])
         logger.debug(f"out: {data}")
         try:
@@ -92,12 +82,12 @@ class IOWorker:
                 data = data[cnt:]
         except Exception as e:
             logger.error(e)
-            if len(data): continue # 缓冲不够 没有写完 等下次OUT事件再写 
+            if len(data): return  # 缓冲不够 没有写完 等下次OUT事件再写
         if not len(data):
             self.epoll.modify(fd, select.EPOLLET)
             self.conns[fd].shutdown(socket.SHUT_RDWR)  # 如何处理对端关闭？ 
 
-    def on_close(self, fd)
+    def on_close(self, fd):
         logger.debug("CLOSE OR ERROR")   # todo 超时控制 用堆？链表？map？
         self.epoll.unregister(fd)
         self.conns[fd].close()
@@ -105,7 +95,7 @@ class IOWorker:
         del self.inq[fd]
         del self.outq[fd]
 
-# class Sock:
+# class Sock: # 计时/排序
 #     def __init__(self, fd):
 #         self.fd = fd
 #         self.time = time.time()

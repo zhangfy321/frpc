@@ -1,5 +1,6 @@
-import loguru
-import Server
+from loguru import logger
+from baseserver import Server
+logger.add("log/web.log")
 
 
 if __name__ == '__main__':
