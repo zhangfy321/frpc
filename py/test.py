@@ -2,6 +2,7 @@ from proto.helloworld_pb2 import HelloRequest
 from conf.conf import DELIM
 import socket
 
+
 def tcp_echo_client():
     sock = socket.socket()
     sock.connect(('localhost', 8001))

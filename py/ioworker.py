@@ -23,12 +23,16 @@ class IOWorker:
         while True:
             epoll_lst = self.epoll.poll()
             for fd, ev in epoll_lst:
-                if fd == self.m_sock.fileno(): self.on_connect(fd)
-                elif ev & select.EPOLLIN: self.on_read(fd)
-                elif ev & select.EPOLLOUT: self.on_write(fd)
-                else: self.on_close(fd)
+                if fd == self.m_sock.fileno():
+                    self.on_connect()
+                elif ev & select.EPOLLIN:
+                    self.on_read(fd)
+                elif ev & select.EPOLLOUT:
+                    self.on_write(fd)
+                else:
+                    self.on_close(fd)
 
-    def on_connect(self, fd):
+    def on_connect(self):
         try:
             while True:
                 logger.debug("on connect")
