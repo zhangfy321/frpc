@@ -1,7 +1,7 @@
 # server
 ADDR = "0.0.0.0"
 PORT = 8001
-MODULE_NAME = "helloworld"
+SERVICE_NAME = "hello"
 
 TIMEOUT = 10
 ENABLE_CUSTOMIZE_WORKER_NUM = True
@@ -13,4 +13,4 @@ QUEUE_MAXIMUM = 65535
 
 # consul
 CONSUL_PORT = 8900
-CONSUL_HOST = "localhost"
+CONSUL_HOST = "9.135.11.35"

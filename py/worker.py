@@ -7,12 +7,17 @@ class Worker:
     def __init__(self, inq, outq):
         self.inq = inq
         self.outq = outq
+        self.get_cnt = 0
+        self.miss_cnt = 0
 
     def _dispatcher(self):
         while True:
+            logger
             try:
                 fd, job = self.inq.popitem()  # todo collections.OrderedDict
+                self.get_cnt += 1
             except:
+                self.miss_cnt += 1
                 continue
             for item in job.split(DELIM):
                 if not len(item):
