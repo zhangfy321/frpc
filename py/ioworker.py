@@ -32,7 +32,6 @@ class IOWorker:
                 else:
                     self.on_close(fd)
 
-
     def on_connect(self):
         try:
             while True:
@@ -41,6 +40,7 @@ class IOWorker:
                 self.epoll.register(conn.fileno(), select.EPOLLIN | select.EPOLLET)
                 self.conns[conn.fileno()] = conn
 
+                logger.debug(f"new connect {conn.getpeername()}")
                 with self.lock:
                     self.inq[conn.fileno()] = bytearray()
                     self.outq[conn.fileno()] = bytearray()
@@ -49,6 +49,7 @@ class IOWorker:
             pass
 
     def on_read(self, fd):
+        logger.debug(f"new epoll in")
         conn = self.conns[fd]
         data = bytearray()
         try:
@@ -56,7 +57,7 @@ class IOWorker:
                 data += conn.recv(1024)
         except socket.error:
             pass
-
+        logger.debug(f"read data {data}")
         msgs = data.split(DELIM)
         if len(msgs) == 0: # 当前包不构成完整消息，与buffer拼接
             self.buffers[fd] = self.buffers[fd] + bytearray(data)

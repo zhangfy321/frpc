@@ -1,18 +1,22 @@
 import socket
 from loguru import logger
 from conf.conf import *
+from main import m_consul
 
 
 class Client:
     def __init__(self):
         pass
 
-    def call(self, method_id, req):
+    def call(self, service_name, method_id, req):
         sock = socket.socket()
         data = method_id.to_bytes(2, 'big') + req.SerializeToString() + DELIM
-        sock.connect(('localhost', 8001))
+        _, addr = m_consul.get_service(service_name)
+        logger.debug(f"[consul] get service {addr}")
+        sock.connect(("9.135.11.35", 8002))
+        # sock.connect(addr)
         sock.send(data)
-        data = sock.recv(100)
+        data = sock.recv(1024)
         sock.close()
         data = data.split(DELIM)
         if not len(data):

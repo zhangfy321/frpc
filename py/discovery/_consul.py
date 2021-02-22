@@ -1,6 +1,7 @@
 import consul
 from conf.conf import *
 import socket
+from loguru import logger
 '''
 docker pull consul
 
@@ -30,6 +31,7 @@ class Consul(object):
             tags,
             # 健康检查ip端口，检查时间：5,超时时间：30，注销时间：30s
             check=consul.Check().tcp(host, port, "5s", "30s", "30s"))
+        logger.debug(f"[consul] register service {service_name}@{host}:{port}")
 
     def deregister(self, service_name):
         de_result = self._consul.agent.service.deregister(service_name)
@@ -41,7 +43,7 @@ class Consul(object):
         service = services.get(service_name)
         if not service:
             return None, None
-        addr = f"{service['Address']}:{service['Port']}"
+        addr = (service['Address'], int(service['Port']))
         return service, addr
 
 
