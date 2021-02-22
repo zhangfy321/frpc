@@ -23,6 +23,7 @@ class IOWorker:
         while True:
             epoll_lst = self.epoll.poll()
             for fd, ev in epoll_lst:
+                logger.debug(f"e: {ev}, con {len(self.conns)}, 'inq/ouq' {len(self.inq)}/{len(self.outq)}")
                 if fd == self.m_sock.fileno():
                     self.on_connect()
                 elif ev & select.EPOLLOUT:
@@ -59,7 +60,7 @@ class IOWorker:
             pass
         logger.debug(f"read data {data}")
         msgs = data.split(DELIM)
-        if len(msgs) == 0: # 当前包不构成完整消息，与buffer拼接
+        if len(msgs) == 0:  # 当前包不构成完整消息，与buffer拼接
             self.buffers[fd] = self.buffers[fd] + bytearray(data)
         else:
             for idx, msg in enumerate(msgs):
@@ -75,7 +76,7 @@ class IOWorker:
     def on_write(self, fd):
         data = memoryview(self.outq[fd])
         if not len(self.outq[fd]):
-            logger.error("出包为空")
+            logger.debug("出包为空")
             self.epoll.modify(fd, select.EPOLLOUT | select.EPOLLET)
             return
         try:
