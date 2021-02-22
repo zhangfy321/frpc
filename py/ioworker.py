@@ -77,6 +77,7 @@ class IOWorker:
         if not len(self.outq[fd]):
             logger.error("出包为空")
             self.epoll.modify(fd, select.EPOLLOUT | select.EPOLLET)
+            return
         try:
             while len(data) > 0:
                 cnt = self.conns[fd].send(data)
