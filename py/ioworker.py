@@ -35,9 +35,7 @@ class IOWorker:
     def on_connect(self):
         try:
             while True:
-                logger.debug("on connect")
                 conn, addr = self.m_sock.accept()
-                logger.debug(f"new connection incomes: {addr}")
                 conn.setblocking(0)
                 self.epoll.register(conn.fileno(), select.EPOLLIN | select.EPOLLET)
                 self.conns[conn.fileno()] = conn
@@ -45,18 +43,20 @@ class IOWorker:
                 self.outq[conn.fileno()] = bytearray()
                 self.buffers[conn.fileno()] = bytearray()
         except Exception as e:
-            logger.error(e)
+            # logger.debug(e)
+            pass
 
     def on_read(self, fd):
         conn = self.conns[fd]
         data = bytearray()
-        logger.debug(f"EPOLL IN: {fd}")
+        # logger.debug(f"EPOLL IN: {fd}")
         try:
             while True:
                 data += conn.recv(1024)
         except Exception as e:
-            logger.error(e)
-        logger.debug(f"recv data legth: {len(data)}")
+            # logger.debug(e)
+            pass
+        # logger.debug(f"recv data legth: {len(data)}")
         msgs = data.split(DELIM)  # 每个消息尾部加上DELIM
         if len(msgs) == 0:
             self.buffers[fd] = self.buffers[fd] + bytearray(data)
@@ -66,35 +66,35 @@ class IOWorker:
                     last = self.buffers.get(fd)
                     if idx < len(msgs):  # 后面还有说明本段构成了完整消息
                         self.inq[fd] = last + bytearray(msg) + DELIM
-                        logger.debug("put to inq...")
+                        # logger.debug("put to inq...")
                         self.buffers[fd] = bytearray()
                     else: 
                         self.buffers[fd] = bytearray(msg)
             # while not len(self.inq[fd]):
             #     logger.debug(f"message: {self.inq[fd].get()}")
-        logger.debug(f"in: {data}")
+        # logger.debug(f"入包数据: {data}")
         self.epoll.modify(fd, select.EPOLLOUT | select.EPOLLET)
  
     def on_write(self, fd):
-        logger.debug("EPOLL OUT")
-        if not len(self.outq[fd]): # 没有回包，下次再说
-            self.epoll.modify(fd, select.EPOLLOUT | select.EPOLLET) # 手动触发out事件
+        # logger.debug("EPOLL OUT")
+        if not len(self.outq[fd]):  # 没有回包，下次再说
+            self.epoll.modify(fd, select.EPOLLOUT | select.EPOLLET)  # 手动触发out事件
             return
+        logger.debug(f"回包数据: {self.outq[fd]}")
         data = memoryview(self.outq[fd])
-        logger.debug(f"out: {data}")
         try:
             while len(data):
                 cnt = self.conns[fd].send(data)
                 data = data[cnt:]
         except Exception as e:
-            logger.error(e)
+            # logger.error(e)
             if len(data): return  # 缓冲不够 没有写完 等下次OUT事件再写
         if not len(data):
             self.epoll.modify(fd, select.EPOLLET)
             self.conns[fd].shutdown(socket.SHUT_RDWR)  # 如何处理对端关闭？ 
 
     def on_close(self, fd):
-        logger.debug("CLOSE OR ERROR")   # todo 超时控制 用堆？链表？map？
+        # logger.debug("CLOSE OR ERROR")   # todo 超时控制 用堆？链表？map？
         self.epoll.unregister(fd)
         self.conns[fd].close()
         del self.conns[fd]

@@ -1,32 +1,20 @@
 import socket
 from loguru import logger
+from conf.conf import *
 
 
 class Client:
-    def __init__(self, service, pool):
-        self.service = service
-        self.pool = pool
+    def __init__(self):
+        pass
 
-    def call(self, data):
-        sock = self.pool.get()
-        if not sock:
-            logger.error("socket not enough")
-            return None
-        # todo
+    def call(self, method_id, req):
+        sock = socket.socket()
+        data = method_id.to_bytes(2, 'big') + req.SerializeToString() + DELIM
         sock.connect(('localhost', 8001))
         sock.send(data)
         data = sock.recv(100)
-        print(f'Received: {data.decode()!r}')
-
-
-class Pool:
-    def __init__(self, size):
-        self.pool = []
-        for item in range(size):
-            self.pool.append(socket.socket())
-
-    def get(self):
-        return self.pool[0] if self.pool else False
-
-    def put(self, sock):
-        self.pool.append(sock)
+        sock.close()
+        data = data.split(DELIM)
+        if not len(data):
+            return None
+        return data[0]

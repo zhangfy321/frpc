@@ -19,7 +19,7 @@ class Worker:
                     continue
                 data = memoryview(item)
                 method_id = int.from_bytes(data[:2], byteorder='big', signed=False)
-                logger.debug(f"method_id: {method_id}")
+                # logger.debug(f"method_id: {method_id}")
                 if server.FUNCS.get(method_id):
                     self.outq[fd] = server.FUNCS[method_id](data[2:]) + DELIM
                 else:
