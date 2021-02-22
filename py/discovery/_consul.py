@@ -1,6 +1,7 @@
 import consul
 from conf.conf import *
 import socket
+import time
 from loguru import logger
 '''
 docker pull consul
@@ -25,7 +26,7 @@ class Consul(object):
         # 注册服务
         self._consul.agent.service.register(
             service_name,
-            service_name,  # service_id
+            service_name + '_' + time.strftime("%Y-%m-%d~%H:%M:%S", time.localtime()),  # service_id
             host,
             port,
             tags,
