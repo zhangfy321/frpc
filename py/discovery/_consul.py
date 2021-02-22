@@ -47,5 +47,5 @@ class Consul(object):
 
 if __name__ == '__main__':
     consul_client = Consul(CONSUL_HOST, CONSUL_PORT)
-    consul_client.register_service(SERVICE_NAME, socket.gethostbyname(socket.gethostname()),PORT)
+    consul_client.register_service(SERVICE_NAME, socket.gethostbyname(socket.gethostname()), PORT)
     print(consul_client.get_service("maple"))
