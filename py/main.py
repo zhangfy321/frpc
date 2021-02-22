@@ -11,3 +11,4 @@ if __name__ == '__main__':
     # c.register_service(MODULE_NAME, socket.gethostbyname(socket.gethostname()), PORT) # 服务注册
     s = Server()
     s.Run()
+
