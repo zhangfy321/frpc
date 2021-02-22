@@ -1,0 +1,12 @@
+syntax = "proto3";
+package server;
+
+message PayReq {
+    string order_id = 1;
+    string pay_code = 2;
+}
+
+message PayReply {
+    string status = 1;
+}
+

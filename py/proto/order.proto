@@ -1,0 +1,13 @@
+syntax = "proto3";
+package server;
+
+message OrderReq {
+    string good_id = 1;
+    string user_id = 2;
+}
+
+message OrderReply {
+    string status = 1;
+    string order_id = 2;
+}
+
