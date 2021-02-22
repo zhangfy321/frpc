@@ -53,8 +53,8 @@ def test_hello():
 
 if __name__ == '__main__':
     c = Client()
-    test_hello()
-    # test_getlist()
+    # test_hello()
+    test_getlist()
     # test_order()
     # test_pay()
     # ts = []

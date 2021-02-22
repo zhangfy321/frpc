@@ -52,8 +52,11 @@ class IOWorker:
     def on_read(self, fd):
         logger.debug(f"new epoll in")
         conn = self.conns[fd]
-        data = bytearray()
         try:
+            data = conn.recv(1024)
+            if not len(data):
+                self.on_close(fd)
+                return
             while True:
                 data += conn.recv(1024)
         except socket.error:

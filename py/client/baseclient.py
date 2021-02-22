@@ -15,7 +15,9 @@ class Client:
         logger.debug(f"[consul] get service {addr}")
         # sock.connect(("9.135.11.35", 8002))
         # sock.connect(addr)
-        sock.connect(("9.135.11.35", 8002))
+        # sock.connect(("9.135.11.35", 8080))
+        sock.connect(("192.168.10.7", 8001))
+
 
         sock.send(data)
         data = sock.recv(1024)
