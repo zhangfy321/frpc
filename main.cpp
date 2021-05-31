@@ -17,6 +17,5 @@ int main() {
     memcpy(buf, "hello", 64);
     cout << sizeof(*buf) << endl;
     cout << buf << endl;
-
 }
 
