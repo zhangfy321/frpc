@@ -1,1 +1,4 @@
-log/web.log
+log
+.idea
+.vscode
+
