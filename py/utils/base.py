@@ -2,8 +2,6 @@ import socket
 from loguru import logger
 from conf.conf import *
 
-logger.add("log/web.log")
-
 
 def init_server_socket():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -14,4 +12,6 @@ def init_server_socket():
     sock.setblocking(True)
     sock.bind((ADDR, PORT))
     sock.listen(QUEUE_SIZE)
+    logger.debug(f"Server bind on {ADDR}:{PORT}")
     return sock
+

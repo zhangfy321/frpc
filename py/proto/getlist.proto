@@ -1,0 +1,16 @@
+syntax = "proto3";
+package server;
+
+message GetListReq {
+    string category = 1;
+}
+
+message Item {
+    string id = 1;
+    string name = 2;
+    string price = 3;
+}
+message GetListReply {
+    repeated Item list = 1;
+}
+
