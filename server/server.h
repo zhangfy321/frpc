@@ -1,7 +1,4 @@
-//
-// Created by fy on 2021/1/14.
-//
-
+#pragma once
 #ifndef FRPC_SERVER_H
 #define FRPC_SERVER_H
 
@@ -25,8 +22,8 @@ private:
     int AfterChildRun();
     
     uint32_t _thread_cnt;
-    std::string ip;
-    uint16_t port;
+    std::string ip_;
+    uint16_t port_;
 };
 
 

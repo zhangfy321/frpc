@@ -19,7 +19,11 @@ public:
     {
         ifstream conf_stream(_conf_filepath, ios::in);
         if(!conf_stream.is_open ())
+        {
             ERROR("open config file err");
+            exit(-1);
+        }
+            
 
         std::string line;
         while (!conf_stream.eof())
@@ -39,8 +43,8 @@ public:
         return config;
     }
 private:
-    std::string _conf_filepath;
-    std::map<Section, Item*> _conf_data;
+    std::string conf_filepath_;
+    std::map<Section, Item*> conf_data_;
 }
 
 } //namespace frpc
