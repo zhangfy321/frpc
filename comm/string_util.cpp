@@ -1,6 +1,8 @@
 //util
 #include "string_util.h"
 
+namespace comm
+{
 void StrTrim(std::string* str)
 {
     size_t start_pos = 0;
@@ -35,4 +37,5 @@ void StrSplit(const std::string& s, std::vector<std::string>* tokens, const std:
         lastPos = s.find_first_not_of(delimiters, pos);
         pos = s.find_first_of(delimiters, lastPos);
     }
+}
 }

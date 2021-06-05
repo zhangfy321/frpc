@@ -19,10 +19,14 @@ public:
     int Run();
 
 private:
-    void watch();
-
-    uint32_t _thread_cnt;
+    int BeforeMasterRun();
+    int AfterMasterRun();
+    int BeforeChildRun();
+    int AfterChildRun();
     
+    uint32_t _thread_cnt;
+    std::string ip;
+    uint16_t port;
 };
 
 
