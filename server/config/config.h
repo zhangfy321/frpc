@@ -39,8 +39,8 @@ public:
         return config;
     }
 private:
-    std::string _conf_filepath;
-    std::map<Section, Item*> _conf_data;
+    std::string conf_filepath_;
+    std::map<Section, Item*> conf_data_;
 }
 
 } //namespace frpc
