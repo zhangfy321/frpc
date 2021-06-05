@@ -1,6 +1,3 @@
-//
-// Created by fy on 2021/1/14.
-//
 #include "server.h"
 #include "io/base/base.cpp"
 #include <thread>

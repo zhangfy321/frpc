@@ -19,7 +19,11 @@ public:
     {
         ifstream conf_stream(_conf_filepath, ios::in);
         if(!conf_stream.is_open ())
+        {
             ERROR("open config file err");
+            exit(-1);
+        }
+            
 
         std::string line;
         while (!conf_stream.eof())
