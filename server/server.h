@@ -10,19 +10,19 @@
 #include <thread>
 
 /*
- * Server预先派生指定数量的epoll线程，他们监听相同端口，发生IO事件后派生协程来处理
+ * Server预先派生指定数量的epoll线程，他们监听相同端口
 */
-class Server {
+class Server { //注意单例
 public:
-    Server() = default;
+    Server() = default; //加载配置
     virtual ~Server();
     int Run();
 
 private:
     void watch();
 
-    uint32_t _thread_cnt = 10;
-    std::vector<std::thread::id> t_ids;
+    uint32_t _thread_cnt;
+    
 };
 
 
