@@ -1,16 +1,22 @@
+# 项目顶层目录存在一个CMakeLists文件
+# 1. 若包含源文件的子文件夹存在CMakeLists文件，主目录的CMakeLists通过add_subdirectory添加子目录即可
+# 2. 反之，子目录的编译规则体现在主目录的CMakeLists中
+
+# 不推荐使用内部构建，推荐外部构建： mkdir build; cd build; cmake ..; make
+
 cmake_minimum_required(VERSION 3.15)
 project(
     frpc 
     VERSION 0.1
     DESCRIPTION "FRPC Framework"
-    LANGUAGES C CXX)
+    LANGUAGES C CXX
+)
 
-set(CMAKE_CXX_STANDARD 11) 
+set(CMAKE_CXX_STANDARD 11) # 显示地定义变量
 
 ## 启用单元测试
-enable_testing()
+# enable_testing()
 
-# add_executable(frpc main.cpp)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "DEBUG") # Debug / Release
 endif()
@@ -34,7 +40,7 @@ set(CXX_FLAGS
  -Wshadow
  -Wwrite-strings # 不允许将字符串常量转为char*
  -march=native # todo 一些人说加上这个会导致性能损失 待测试
- # -O0 # 不进行优化处理
+ -O0 # 不进行优化处理
  # -O1 # 进行优化
  # -O2 # 进一步优化
  # -O3 # 更进一步优化 包括inline函数
@@ -81,3 +87,12 @@ endif()
 # 打印编译选项
 string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
 message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
+
+# 配置头文件搜索路径
+include_directories(${PROJECT_SOURCE_DIR})
+
+add_subdirectory(comm)
+add_subdirectory(server)
+
+add_executable(frpc.out main.cpp)
+target_link_libraries(frpc.out frpc_base)
