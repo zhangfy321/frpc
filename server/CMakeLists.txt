@@ -11,6 +11,8 @@
 
 set(net_SRCS
   server.cc
+  io/io_loop.cc
+  config/config.cc
 )
 
 add_library(frpc_base ${net_SRCS})

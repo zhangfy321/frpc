@@ -1,11 +1,13 @@
 #include "server.h"
 #include "comm/format.h"
-
+#include "io/io_loop.h"
 namespace frpc
 {
 
 int Server::Run(){
     DEBUG("frpc server start running...");
+    frpc::IOLoop io_loop = frpc::IOLoop(ip_, port_);
+    io_loop.Run();
     return 0;
 }
 

@@ -18,54 +18,57 @@
 #include <iostream>
 #include "comm/macros.h"
 #define MAX_EVENTS 10
-namespace frpc
-{
-int IOLoop::Run()
-{
+namespace frpc{
+
+int IOLoop::Run(){
+
     InitSocket();
 
-    struct epoll_event ev, events[MAX_EVENTS];
+    struct epoll_event events[MAX_EVENTS], cur_event;
+    struct sockaddr_in cli_addr;
+    socklen_t socklen = sizeof(cli_addr);
+    int fd = -1;
+    uint32_t ev = -1;
     int conn_fd;
-    for(;;)
-    {   
+    
+    for(;;){
         int fds_num = epoll_wait(epfd_, events, MAX_EVENTS, -1);
 
         //https://zhuanlan.zhihu.com/p/149265232
-        for (n = 0; n < fds_num; ++n) 
-        {
-            if (events[n].data.fd == listen_fd_) 
-            {
-                int conn_fd = accept(listen_fd_, (struct sockaddr *) &addr, &addrlen);
-                if (UNLIKELY(conn_fd == -1)) {
-                    ERROR("accept ret -1");
-                    exit(-1);
-                }
+        for (int n = 0; n < fds_num; ++n) {
+            fd = events[n].data.fd;
+            ev = events[n].events;
 
-                setnonblocking(conn_fd);
+            if (fd == listenfd_){
+                //新连接
+                conn_fd = accept(listenfd_, reinterpret_cast<sockaddr*>(&cli_addr), &socklen);
+                RETURN_ERROR(conn_fd <= 0, "accept ret err");
 
-                ev.events = EPOLLIN | EPOLLET; //ET模式
-                ev.data.fd = conn_fd;
+                // 设置为非阻塞
+                int opts = -1;     
+                opts = fcntl(conn_fd, F_GETFL);    
+                RETURN_ERROR(opts < 0, "setnonblocking failed");
+                opts = opts | O_NONBLOCK;  
+                int ret = fcntl(conn_fd, F_SETFL, opts);
+                RETURN_ERROR( ret < 0, "setnonblocking failed"); 
+
+                //将此fd注册到epoll
+                cur_event.events = EPOLLIN | EPOLLET | EPOLLRDHUP | EPOLLHUP;
+                cur_event.data.fd = fd;
+                ret = epoll_ctl(epfd_, EPOLL_CTL_ADD, conn_fd, &cur_event);
+                RETURN_ERROR(ret < 0 , "epoll_add ret err");
+
+            } else {
                 
-                if (UNLIKELY(-1 == epoll_ctl_add(epfd, conn_fd, EPOLLIN | EPOLLET | EPOLLRDHUP | EPOLLHUP))) {
-                    ERROR("epoll_add ret -1");
-                    exit(-1);
-                }
-            }
-            else 
-            {
-                uint32_t ev = events[n].events;
-                if (ev & EPOLLIN)
-                {
+                if (ev & EPOLLIN){
                     //读事件 交给线程池处理
                 }
 
-                if (ev & EPOLLOUT)
-                {
+                if (ev & EPOLLOUT){
                     //写事件
                 }
                 
-                if (ev & (EPOLLRDHUP | EPOLLERR | EPOLLHUP))
-                {
+                if (ev & (EPOLLRDHUP | EPOLLERR | EPOLLHUP)){
                     //关闭事件
                 }
             }
@@ -78,56 +81,59 @@ void IOLoop::InitSocket()
 {
     struct sockaddr_in addr;
     addr.sin_family = PF_INET;
-    addr.sin_addr.s_addr = htons(ip_); //注意字节序变为大端
-    addr.sin_port = htons(port_); 
+    addr.sin_addr.s_addr = INADDR_ANY; 
+    addr.sin_port = htons(port_); //注意字节序变为大端
 
     int ret = 0;
     //创建sever监听socket
-    listen_fd_ = socket(AF_INET, SOCK_STREAM, 0); 
-    assert(listen_fd_ >= 0);
+    listenfd_ = socket(AF_INET, SOCK_STREAM, 0); 
+    RETURN_ERROR(listenfd_ < 0, "create socker err");
 
     int flag = 1;
     //SO_REUSEPORT 是多个epoll线程监听相同地址端口组
-    ret = setsockopt(listenfd_, SOL_SOCKET, SO_REUSEPORT, flag, sizeof(flag)) 
-    assert(ret == 0);
+    ret = setsockopt(listenfd_, SOL_SOCKET, SO_REUSEPORT, &flag, sizeof(flag)); 
+    RETURN_ERROR(ret < 0, "set reuseport err");
 
     //SO_REUSEADDR 使server免等待快速重启
-    ret = setsockopt(listenfd_, SOL_SOCKET, SO_REUSEADDR, flag, sizeof(flag)) 
-    assert(ret == 0);
+    ret = setsockopt(listenfd_, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(flag)); 
+    RETURN_ERROR(ret < 0, "set reuseaddr err");
 
     //设置KeepAlive
-    setsockopt(listenfd_, SOL_SOCKET, SO_KEEPALIVE, flag, sizeof(flag)) == -1 
-    assert(ret == 0);
+    ret = setsockopt(listenfd_, SOL_SOCKET, SO_KEEPALIVE, &flag, sizeof(flag));
+    RETURN_ERROR(ret < 0, "set keepalive err");
 
     //设置TCP_NODELAY (禁用Nagle算法，适用于延时敏感型应用)
-    setsockopt(listenfd_, IPPROTO_TCP, TCP_NODELAY, flag, sizeof(flag)) == -1 
-    assert(ret == 0);
+    ret = setsockopt(listenfd_, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(flag));
+    RETURN_ERROR(ret < 0, "set tcp nodelay err");
 
     //设置CLOSE_DELAY
-    struct linger ling;
-    ling.l_onoff = close_delay_ != 0;       // 在close socket调用后, 但是还有数据没发送完毕的时候容许逗留
-    ling.l_linger = close_delay_;           // 容许逗留的时间为delay秒
-    setsockopt(listenfd_, SOL_SOCKET, SO_LINGER, linger, sizeof(linger)) == -1 
-    assert(ret == 0);
+    struct linger so_linger;
+    so_linger.l_onoff = close_delay_ != 0;       // 在close socket调用后, 但是还有数据没发送完毕的时候容许逗留
+    so_linger.l_linger = close_delay_;           // 容许逗留的时间为delay秒
+    ret = setsockopt(listenfd_, SOL_SOCKET, SO_LINGER, &so_linger, sizeof(linger));
+    RETURN_ERROR(ret < 0, "set close delay err");
 
     //设置socket为非阻塞 todo 怎么理解？
-    int flags = fcntl(listen_fd_, F_GETFL, 0); 
-    fcntl(listen_fd_, F_SETFL, flags|O_NONBLOCK);
+    int flags = fcntl(listenfd_, F_GETFL, 0); 
+    fcntl(listenfd_, F_SETFL, flags|O_NONBLOCK);
 
     
     //绑定端口ip
-    ret = bind(listen_fd_, (struct sockaddr*)&addr, sizeof(addr)); 
-    assert(ret == 0);
+    ret = bind(listenfd_, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)); 
+    RETURN_ERROR(ret < 0, "bind err");
 
     //开启监听
-    ret = listen(listen_fd_, backlog_); 
-    assert(ret == 0);
+    ret = listen(listenfd_, backlog_); 
+    RETURN_ERROR(ret < 0, "listen err");
 
 
     epfd_ = epoll_create1(0);
-    assert(epfd_ == 0);
+    RETURN_ERROR(ret < 0, "create epoll fd err");
+}
 
-    struct epoll_event ev, events[MAX_EVENTS];
+IOLoop::~IOLoop(){
+    close(listenfd_);
 }
 
 }
+
