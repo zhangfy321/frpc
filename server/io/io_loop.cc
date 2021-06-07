@@ -17,7 +17,9 @@
 #include <cassert>
 #include <iostream>
 #include "comm/macros.h"
+#include "comm/format.h"
 #define MAX_EVENTS 10
+
 namespace frpc{
 
 int IOLoop::Run(){
@@ -61,21 +63,25 @@ int IOLoop::Run(){
             } else {
                 
                 if (ev & EPOLLIN){
-                    //读事件 交给线程池处理
+                    HandleRead(fd);
                 }
 
                 if (ev & EPOLLOUT){
-                    //写事件
+                    // HandleWrite(fd);
                 }
                 
                 if (ev & (EPOLLRDHUP | EPOLLERR | EPOLLHUP)){
-                    //关闭事件
+                    // HandleClose(fd);
                 }
             }
         }
     }
     return 0;
 }
+
+void IOLoop::HandleRead(int fd){
+    INFO("read event %d", fd);
+};
 
 void IOLoop::InitSocket()
 {

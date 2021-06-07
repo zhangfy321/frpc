@@ -1,4 +1,6 @@
 #pragma once
+#ifndef FRPC_SERVER_SERVER_H
+#define FRPC_SERVER_SERVER_H
 #include <cstdint>
 #include <string>
 
@@ -8,11 +10,15 @@
 namespace frpc
 {
 
-class Server { //注意单例
+class Server
+{ //注意单例
 public:
     Server();
-    Server(uint32_t thread_cnt, std::string ip, uint16_t port):
-    thread_cnt_(thread_cnt), ip_(ip), port_(port){};
+
+    Server(uint32_t thread_cnt, std::string ip, uint16_t port) : thread_cnt_(thread_cnt),
+                                                                 ip_(ip), port_(port){
+                                                                              //todo
+                                                                          };
 
     ~Server(){};
 
@@ -23,10 +29,12 @@ private:
     int AfterMasterRun();
     int BeforeChildRun();
     int AfterChildRun();
-    
+
     uint32_t thread_cnt_;
     std::string ip_;
     uint16_t port_;
 };
 
-}
+} //namespace frpc
+
+#endif //FRPC_SERVER_SERVER_H
