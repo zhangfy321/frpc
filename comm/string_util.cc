@@ -1,4 +1,3 @@
-//util
 #include "string_util.h"
 #include <string.h>
 
@@ -26,10 +25,9 @@ bool StrStartsWith(const std::string& str, const std::string& prefix)
     return str.size() >= prefix.size() && strncasecmp(str.c_str(), prefix.c_str(), prefix.size()) == 0;
 }
 
-
 void StrSplit(const std::string& s, std::vector<std::string>* tokens, const std::string& delimiters)
 {
-    std::string::size_type lastPos = s.find_first_not_of(delimiters, 0) ;
+    std::string::size_type lastPos = s.find_first_not_of(delimiters, 0);
     std::string::size_type pos = s.find_first_of(delimiters, lastPos);
     while (std::string::npos != pos || std::string::npos != lastPos)
     {
@@ -38,4 +36,5 @@ void StrSplit(const std::string& s, std::vector<std::string>* tokens, const std:
         pos = s.find_first_of(delimiters, lastPos);
     }
 }
-}
+
+} //namespace comm

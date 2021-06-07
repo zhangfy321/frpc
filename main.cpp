@@ -2,8 +2,7 @@
 #include "server/server.h"
 
 int main() {
-    std::cout << "hello world" << std::endl;
-    frpc::Server* svr = new frpc::Server(1, "0.0.0.0", 8000);
+    frpc::Server* svr = new frpc::Server(1, "0.0.0.0", 8765);
     svr->Run();
 }
 
