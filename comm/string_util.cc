@@ -1,5 +1,6 @@
 //util
 #include "string_util.h"
+#include <string.h>
 
 namespace comm
 {
@@ -22,8 +23,7 @@ void StrTrim(std::string* str)
 
 bool StrStartsWith(const std::string& str, const std::string& prefix)
 {
-    return str.size() >= prefix.size() &&
-        strncasecmp(str.c_str(), prefix.c_str(), prefix.size()) == 0;
+    return str.size() >= prefix.size() && strncasecmp(str.c_str(), prefix.c_str(), prefix.size()) == 0;
 }
 
 

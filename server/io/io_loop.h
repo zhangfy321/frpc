@@ -1,6 +1,5 @@
 #include <iostream>
-#include "config/config.h"
-
+#include "server/config/config.h"
 
 namespace frpc
 {
@@ -10,17 +9,16 @@ public:
     {
         InitSocket();
     }
-    ~IOLoop()
-    {
-        close();
-    }
-    Run();
+    IOLoop(std::string ip, uint16_t port):
+        ip_(ip), port_(port){};
+    ~IOLoop();
+
+    int Run();
 private:
     void InitSocket();
-
     void HandleClose();
-
-    void Handle
+    void HandleRead();
+    void HandleWrite();
 
     std::string ip_;
     uint16_t port_;

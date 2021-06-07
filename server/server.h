@@ -1,18 +1,21 @@
 #pragma once
-#ifndef FRPC_SERVER_H
-#define FRPC_SERVER_H
-
 #include <cstdint>
-#include <vector>
-#include <thread>
+#include <string>
 
 /*
  * Server预先派生指定数量的epoll线程，他们监听相同端口
 */
+namespace frpc
+{
+
 class Server { //注意单例
 public:
-    Server() = default; //加载配置
-    virtual ~Server();
+    Server();
+    Server(uint32_t thread_cnt, std::string ip, uint16_t port):
+    thread_cnt_(thread_cnt), ip_(ip), port_(port){};
+
+    ~Server(){};
+
     int Run();
 
 private:
@@ -21,10 +24,9 @@ private:
     int BeforeChildRun();
     int AfterChildRun();
     
-    uint32_t _thread_cnt;
+    uint32_t thread_cnt_;
     std::string ip_;
     uint16_t port_;
 };
 
-
-#endif //FRPC_SERVER_H
+}
