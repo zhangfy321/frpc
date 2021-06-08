@@ -14,7 +14,7 @@ int main() {
 //    cout << *(v[0]) << endl;
     char * buf = new char[64];
 //    *buf = "hello";
-    memcpy(buf, "hello", 64);
+//    memcpy(buf, "hello", 64);
     cout << sizeof(*buf) << endl;
     cout << buf << endl;
 }
