@@ -2,7 +2,7 @@
 #include "demo/client.h"
 #include "comm/format.h"
 #include "comm/macros.h"
-#include <jemalloc/jemalloc.h>
+#include "3rdparty/jemalloc/jemalloc.h"
 
 
 void SendToOneShot(const std::string data, const std::string ip, uint16_t port){

@@ -8,10 +8,6 @@
 #   PROPERTIES
 #   COMPILE_FLAGS "-w"
 # )
-SET(JEMALLOC_INCLUDE_DIR /usr/include/jemalloc/include)
-SET(JEMALLOC_LIB /usr/local/jemalloc/lib)
- 
-
 
 
 set(net_SRCS
@@ -22,7 +18,6 @@ set(net_SRCS
 
 # link_directories(${JEMALLOC_LIB})
 # include_directories(${JEMALLOC_INCLUDE_DIR})
-
 
 
 add_library(frpc_base ${net_SRCS})

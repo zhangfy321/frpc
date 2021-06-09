@@ -22,7 +22,7 @@ set (comm_SRCS
 )
 
 
-find_library(LIBJEMALLOC libjemalloc.so /usr/local/jemalloc/lib)
+find_library(LIBJEMALLOC libjemalloc.so 3rdparty/lib)
 add_library(frpc_comm ${comm_SRCS})
 target_link_libraries(frpc_comm ${LIBJEMALLOC})
 
