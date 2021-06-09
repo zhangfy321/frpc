@@ -21,7 +21,10 @@ set (comm_SRCS
     string_util.cc
 )
 
+
+find_library(LIBJEMALLOC libjemalloc.so /usr/local/jemalloc/lib)
 add_library(frpc_comm ${comm_SRCS})
+target_link_libraries(frpc_comm ${LIBJEMALLOC})
 
 # file(GLOB HEADERS "*.h")
 # install(FILES ${HEADERS} DESTINATION include/burger/net)

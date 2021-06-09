@@ -1,9 +1,9 @@
 #ifndef FRPC_COMM_FORMAT_H
 #define FRPC_COMM_FORMAT_H
 
-#define DEBUG(fmt, args...) fprintf(stderr,"\n\033[0;32m DEBUG (%s:%d:%s): \033[0m" fmt, __FILE__, __LINE__, __func__, ##args)
-#define ERROR(fmt, args...) fprintf(stderr,"\n\033[1;31m ERROR (%s:%d:%s): \033[0m" fmt, __FILE__, __LINE__, __func__, ##args)
-#define INFO(fmt, args...) fprintf(stderr,"\nINFO (%s:%d:%s): " fmt, __FILE__, __LINE__, __func__, ##args)
+#define DEBUG(fmt, args...) fprintf(stderr, "\n\033[0;32m DEBUG (%s:%d:%s): \033[0m" fmt, __FILE__, __LINE__, __func__, ##args)
+#define ERROR(fmt, args...) fprintf(stderr, "\n\033[1;31m ERROR (%s:%d:%s): \033[0m" fmt, __FILE__, __LINE__, __func__, ##args)
+#define INFO(fmt, args...) fprintf(stderr, "\nINFO (%s:%d:%s): " fmt, __FILE__, __LINE__, __func__, ##args)
 
 /*
     格式：\033[显示方式;前景色;背景色m
