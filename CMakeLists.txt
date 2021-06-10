@@ -51,6 +51,8 @@ set(CXX_FLAGS
  -std=c++11
 #  -rdynamic # todo 作用待研究 
  -pthread   # 编译多线程程序 需要链接pthread库
+#  -L/usr/local/jemalloc/lib
+#  -ljemalloc
  )
 
 if(CMAKE_BUILD_BITS EQUAL 32) # 32位机器上加32架构flag
@@ -77,12 +79,11 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib) # 指定库输出目录
 find_package(Boost REQUIRED) # 需要官方已经定义好FindXXX.cmake
 # find_package(Protobuf)
 
-# find_library(JEMALLOC) # todo 引入jemalloc
 
 # 检查是否找到对应库或包
-if(PROTOBUF_FOUND)
-  message(STATUS "found protobuf")
-endif()
+# if(PROTOBUF_FOUND)
+#   message(STATUS "found protobuf")
+# endif()
 
 # 打印编译选项
 string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
@@ -93,6 +94,8 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 add_subdirectory(comm)
 add_subdirectory(server)
+add_subdirectory(demo)
 
-add_executable(frpc.out main.cpp)
-target_link_libraries(frpc.out frpc_base)
+add_executable(frpc main.cpp)
+target_link_libraries(frpc frpc_base)
+

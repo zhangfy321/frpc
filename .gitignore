@@ -71,7 +71,7 @@ bin/lib-bash
 
 .idea
 
-.vscode
+.vscode/*
 
 # Ignore log
 *.log 

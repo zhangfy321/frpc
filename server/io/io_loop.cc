@@ -16,7 +16,6 @@
 #include <unistd.h>
 #include <cassert>
 #include <iostream>
-#include "comm/macros.h"
 #include "comm/format.h"
 #define MAX_EVENTS 10
 
@@ -40,25 +39,29 @@ int IOLoop::Run(){
         for (int n = 0; n < fds_num; ++n) {
             fd = events[n].data.fd;
             ev = events[n].events;
+            INFO("fd %d, ev %d", fd, ev);
 
             if (fd == listenfd_){
                 //新连接
                 conn_fd = accept(listenfd_, reinterpret_cast<sockaddr*>(&cli_addr), &socklen);
-                RETURN_ERROR(conn_fd <= 0, "accept ret err");
+                RETURN_ERROR(conn_fd <= 0, "accept ret %d", conn_fd);
 
-                // 设置为非阻塞
-                int opts = -1;     
-                opts = fcntl(conn_fd, F_GETFL);    
-                RETURN_ERROR(opts < 0, "setnonblocking failed");
-                opts = opts | O_NONBLOCK;  
-                int ret = fcntl(conn_fd, F_SETFL, opts);
+                // 设置为非阻塞 todo
+                int ret = setnonblocking(conn_fd);
                 RETURN_ERROR( ret < 0, "setnonblocking failed"); 
 
                 //将此fd注册到epoll
-                cur_event.events = EPOLLIN | EPOLLET | EPOLLRDHUP | EPOLLHUP;
-                cur_event.data.fd = fd;
+                cur_event.events = EPOLLRDHUP | EPOLLHUP; //todo EPOLLONESHOT
+
+                cur_event.events |=  is_et_ ? EPOLLET | EPOLLIN  : EPOLLIN;
+                cur_event.data.fd = conn_fd;
                 ret = epoll_ctl(epfd_, EPOLL_CTL_ADD, conn_fd, &cur_event);
-                RETURN_ERROR(ret < 0 , "epoll_add ret err");
+                RETURN_ERROR(ret < 0 , "epoll_ctl add ret %d", ret);
+
+                std::string addr_str;
+                getipv4addr(cli_addr.sin_addr.s_addr, &addr_str);
+
+                DEBUG("new conn from %s:%u fd=%d", addr_str.c_str(), cli_addr.sin_port, conn_fd);
 
             } else {
                 
@@ -67,11 +70,11 @@ int IOLoop::Run(){
                 }
 
                 if (ev & EPOLLOUT){
-                    // HandleWrite(fd);
+                    HandleWrite(fd);
                 }
                 
                 if (ev & (EPOLLRDHUP | EPOLLERR | EPOLLHUP)){
-                    // HandleClose(fd);
+                    HandleClose(fd);
                 }
             }
         }
@@ -80,7 +83,16 @@ int IOLoop::Run(){
 }
 
 void IOLoop::HandleRead(int fd){
-    INFO("read event %d", fd);
+    INFO("read event fd=%d", fd);
+};
+
+void IOLoop::HandleWrite(int fd){
+    INFO("write event fd=%d", fd);
+};
+
+void IOLoop::HandleClose(int fd){
+    close(fd);
+    INFO("close event fd=%d", fd);
 };
 
 void IOLoop::InitSocket()
@@ -132,9 +144,21 @@ void IOLoop::InitSocket()
     ret = listen(listenfd_, backlog_); 
     RETURN_ERROR(ret < 0, "listen err");
 
+    std::string addr_str;
+    getipv4addr(addr.sin_addr.s_addr, &addr_str);
+    DEBUG("socket bind on %s:%u", addr_str.c_str(), ntohs(addr.sin_port));
 
-    epfd_ = epoll_create1(0);
+    epfd_ = epoll_create1(EPOLL_CLOEXEC);
     RETURN_ERROR(ret < 0, "create epoll fd err");
+
+    //注册当前监听fd到epoll
+    struct epoll_event event;
+    event.events = EPOLLRDHUP | EPOLLHUP; //todo EPOLLONESHOT
+    event.events |=  is_et_ ? EPOLLET | EPOLLIN  : EPOLLIN;
+    event.data.fd = listenfd_;
+    ret = epoll_ctl(epfd_, EPOLL_CTL_ADD, listenfd_, &event);
+    RETURN_ERROR(ret < 0 , "epoll_add ret err");
+
 }
 
 IOLoop::~IOLoop(){

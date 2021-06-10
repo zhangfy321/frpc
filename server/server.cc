@@ -7,7 +7,7 @@ namespace frpc
 int Server::Run()
 {
     DEBUG("frpc server start running...");
-    frpc::IOLoop io_loop = frpc::IOLoop(ip_, port_);
+    frpc::IOLoop io_loop = frpc::IOLoop(ip_, port_, 100, 100, true, true);
     io_loop.Run();
     return 0;
 }
