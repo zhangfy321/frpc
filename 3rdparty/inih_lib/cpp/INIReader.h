@@ -28,6 +28,8 @@ public:
     // about the parsing.
     explicit INIReader(const char *buffer, size_t buffer_size);
 
+    INIReader();
+
     // Return the result of ini_parse(), i.e., 0 on success, line number of
     // first error on parse error, or -1 on file open error.
     int ParseError() const;
