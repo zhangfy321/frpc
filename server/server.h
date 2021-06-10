@@ -16,9 +16,7 @@ public:
     Server();
 
     Server(uint32_t thread_cnt, std::string ip, uint16_t port) : thread_cnt_(thread_cnt),
-                                                                 ip_(ip), port_(port){
-                                                                              //todo
-                                                                          };
+                                                                 ip_(ip), port_(port){};
 
     ~Server(){};
 
